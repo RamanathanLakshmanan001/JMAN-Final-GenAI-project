@@ -1,8 +1,8 @@
 import os
 import time
 import pandas as pd
-import google.generativeai as genai
-from dotenv import load_dotenv
+import google.generativeai as genai # type: ignore
+from dotenv import load_dotenv # type: ignore
 from duckduckgo_search import DDGS  # type: ignore
 
 

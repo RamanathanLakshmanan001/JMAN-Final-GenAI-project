@@ -9,7 +9,7 @@ def extract_row_range(input_file, output_file, start_row, end_row):
         start_row = max(0, min(start_row, max_index))
         end_row = max(start_row, min(end_row, max_index))
         
-        extracted_dataframe = dataframe.iloc[start_row:end_row+1]
+        extracted_dataframe = dataframe.iloc[start_row:end_row]
         
         extracted_dataframe.to_excel(output_file, index=False)
         
@@ -26,6 +26,6 @@ if __name__ == "__main__":
     output_file = "C:\\JMAN Final Project\\Filtered Company List\\filtered_company_list.xlsx"
     
     start_row = 551
-    end_row = 734
+    end_row = 735
     
     extract_row_range(input_file, output_file, start_row, end_row)

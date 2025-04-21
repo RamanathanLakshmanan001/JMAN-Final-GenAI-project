@@ -3,10 +3,10 @@ import csv
 import hashlib
 import pandas as pd
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore
 from deep_translator import GoogleTranslator  # type: ignore
-from pinecone import Pinecone, ServerlessSpec
-from sentence_transformers import SentenceTransformer
+from pinecone import Pinecone, ServerlessSpec   # type: ignore
+from sentence_transformers import SentenceTransformer   # type: ignore
 
 def generate_vector_id(company_name):
     return hashlib.md5(company_name.encode('utf-8')).hexdigest()

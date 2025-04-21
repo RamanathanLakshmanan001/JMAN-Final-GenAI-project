@@ -1,11 +1,11 @@
 import os
 import time
 import pandas as pd
-import google.generativeai as genai
+import google.generativeai as genai # type: ignore
 
-from dotenv import load_dotenv
-from pinecone import Pinecone, ServerlessSpec
-from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv # type: ignore
+from pinecone import Pinecone, ServerlessSpec # type: ignore
+from sentence_transformers import SentenceTransformer # type: ignore
 
 
 current_key_index = 0
@@ -301,7 +301,6 @@ if __name__ == "__main__":
         "What does this company do? (1-2 sentence description)",
         "What software or technology does this company specialize in?",
         "What industry or sector does this company belong to?",
-        "What industry the company operate in? (Industry)",
         "Does the company mention any notable clients or partners?",
 
         "What is the company's approximate employee headcount?",

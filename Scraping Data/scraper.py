@@ -1,10 +1,28 @@
 import os
 import time
 import pandas as pd
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from selenium import webdriver  # type: ignore
+from selenium.webdriver.common.by import By  # type: ignore
+from selenium.webdriver.chrome.service import Service  # type: ignore
+from selenium.webdriver.chrome.options import Options  # type: ignore
+from selenium.webdriver.support.ui import WebDriverWait  # type: ignore
+from selenium.webdriver.support import expected_conditions as EC  # type: ignore
+
+
+def scroll_to_bottom(driver, pause_time=2):
+    last_height = driver.execute_script("return document.body.scrollHeight")
+
+    while True:
+        driver.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight);")
+
+        time.sleep(pause_time)
+
+        new_height = driver.execute_script("return document.body.scrollHeight")
+
+        if new_height == last_height:
+            break
+        last_height = new_height
 
 
 def scrape_page_text(driver):
@@ -13,6 +31,7 @@ def scrape_page_text(driver):
 
 def scrape_website_with_nav_links(driver, start_url, output_file):
     driver.get(start_url)
+    scroll_to_bottom(driver)
     time.sleep(0.5)
     data = [scrape_page_text(driver)]
     links_to_visit = set()
@@ -41,7 +60,8 @@ def scrape_website_with_nav_links(driver, start_url, output_file):
             visited.add(href)
             try:
                 driver.get(href)
-                time.sleep(0.5)
+                scroll_to_bottom(driver)
+                time.sleep(4)
                 data.append(scrape_page_text(driver))
             except Exception as e:
                 print(f"Error visiting {href}: {e}")
@@ -71,9 +91,8 @@ if __name__ == "__main__":
     urls = data_to_process["official website URL"]
 
     service = Service(
-        "C:\\Users\\raman\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe")
+        "C:\\Users\\RamanathanL\\Downloads\\chromedriver-win64\\chromedriver.exe")
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
